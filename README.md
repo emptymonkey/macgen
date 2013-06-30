@@ -67,8 +67,12 @@ For confirmation, perform a reverse lookup:
 	empty@monkey:~$ macgen -r 78:ec:22:52:29:56
 	78-EC-22   (hex)		Shanghai Qihui Telecom Technology Co., LTD
 
-Note the use of a basic [regex]() in that last example. If you are familiar with [Perl's regular expressions], go ahead and use them here:
-	
-	
+Note the use of a basic [regex](http://en.wikipedia.org/wiki/Regex) in that last example. If you are familiar with [Perl's regular expressions](http://perldoc.perl.org/perlre.html#Regular-Expressions), go ahead and use them here:
 
-
+	empty@monkey:~/code/macgen$ ./macgen -v "(beijing|shanghai).*,ltd"
+	Beijing Risbo Network Technology Co.,Ltd
+	ec:98:c1:51:cd:49
+	empty@monkey:~/code/macgen$ ./macgen -v "(beijing|shanghai).*,ltd"
+	Shanghai WDK Industrial Co.,Ltd.
+	34:bd:f9:1c:07:a4
+	
