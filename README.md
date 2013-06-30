@@ -4,13 +4,13 @@
 
 **[Mac's](http://en.wikipedia.org/wiki/Macintosh) are the best!**
 
-This has nothing to do with the [operating system](http://en.wikipedia.org/wiki/Operating_system) [holy wars](http://dilbert.com/strips/comic/1995-06-24/). "MAC" in this context means "media access control", and refers to the hardware address of a network device. A MAC address is the host's network address within the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). The MAC address is used in conjunction with [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to communicate in layer two.
+Sorry, but this has nothing to do with the [operating system](http://en.wikipedia.org/wiki/Operating_system) [holy wars](http://dilbert.com/strips/comic/1995-06-24/). "MAC" in this context means "media access control", and refers to the hardware address of a network device. A MAC address is the host's network address within the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). The MAC address is used in conjunction with [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to communicate on layer two.
 
-The first three [octets](http://en.wikipedia.org/wiki/Octet_%28computing%29) of a MAC address make up the [OUI](http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier). The OUI of the MAC address determines which organization / vendor manufactured that particular network device. The second three octets are used as a unique identifier as determined by the vendor.
+The first three [octets](http://en.wikipedia.org/wiki/Octet_%28computing%29) of a MAC address make up the [OUI](http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier). The OUI of the MAC address determines which vendor manufactured that particular network device. The second three octets are used as a unique identifier as determined by the vendor.
 
 The OUI's themselves are registered by the vendors with the [IEEE](http://en.wikipedia.org/wiki/Ieee). The IEEE is a standards organization that maintains the list of all [MAC address prefixes](http://standards.ieee.org/develop/regauth/oui/). They maintain a public copy in a file called [oui.txt](http://standards.ieee.org/develop/regauth/oui/oui.txt).
 
-*macgen* is a [Perl](http://www.perl.org/) script that examines your copy of the oui.txt file, and uses [grep](http://perldoc.perl.org/functions/grep.html) to match the string you give it to an organizations name. It then returns the first three octets from your match, and [randomly](http://search.dilbert.com/comic/Random%20Number%20Generator) generates the second three octets.
+*macgen* is a [Perl](http://www.perl.org/) script that examines your copy of the oui.txt file, and uses [grep](http://perldoc.perl.org/functions/grep.html) to match the string you give it with an organizations name. It then returns the first three octets from your match, and [randomly](http://search.dilbert.com/comic/Random%20Number%20Generator) generates the second three octets.
 
 You will need to download your own copy of the oui.txt file for *macgen* to work.
 
@@ -48,7 +48,7 @@ Listen up, whippersnapper. I learned Perl long ago when it too was fashionable. 
 	
 ## Examples ##
 
-Here is an example for spoofing an old [DEC](http://en.wikipedia.org/wiki/Digital_Equipment_Corporation) networking interface.
+Here is an example for spoofing an old [DEC](http://en.wikipedia.org/wiki/Digital_Equipment_Corporation) networking interface:
 
 	empty@monkey:~$ sudo ip link set eth0 addr `macgen "digital electronics corp"`
 	empty@monkey:~$ ip link show dev eth0
@@ -66,5 +66,9 @@ For confirmation, perform a reverse lookup:
 
 	empty@monkey:~$ macgen -r 78:ec:22:52:29:56
 	78-EC-22   (hex)		Shanghai Qihui Telecom Technology Co., LTD
+
+Note the use of a basic [regex]() in that last example. If you are familiar with [Perl's regular expressions], go ahead and use them here:
+	
+	
 
 
