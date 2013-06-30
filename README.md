@@ -14,9 +14,13 @@ The OUI's themselves are registered by the vendors with the [IEEE](http://en.wik
 
 You will need to download your own copy of the oui.txt file for *macgen* to work.
 
-**When would I use *macgen*?**
+**Ewwww! Perl?! Are you old or something?? Why didn't you just use (python|ruby|lisp|javascript) to do this?? All the cool kids are doing it!**
 
-Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) perform a reverse OUI lookup on the MAC addresses they see on the network for the purpose of reporting the device type. A pentester would be able to use *macgen*, in conjunction with a [MAC address spoofing technique](http://en.wikipedia.org/wiki/Mac_spoofing), to evade detection (either by a casual observer or even by a more rigorous [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System).)
+Listen up, whippersnapper. I learned Perl long ago when it too was fashionable. It meets all of my [data munging](http://en.wikipedia.org/wiki/Data_munging) needs and I haven't had a compelling reason to switch yet. It's readily available on most systems and gets the job done, so stop yer [fanboi](http://www.urbandictionary.com/define.php?term=fanboi) yappin! That, and [get off my lawn](http://en.wikipedia.org/wiki/You_kids_get_off_my_lawn!)!
+
+**What is the [use case](http://en.wikipedia.org/wiki/Use_case) for *macgen*?**
+
+Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) can perform a reverse OUI lookup on the MAC addresses they see on the network for the purpose of reporting the device type. A [red team](http://en.wikipedia.org/wiki/Red_team) would be able to use *macgen*, in conjunction with a [MAC address spoofing technique](http://en.wikipedia.org/wiki/Mac_spoofing), to evade detection (either by a casual observer or even by a more rigorous [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System)) during a [pentest](http://en.wikipedia.org/wiki/Pentest) or [wargame](http://en.wikipedia.org/wiki/Wargame_%28hacking%29).
 
 **How do I do MAC address spoofing?**
 
@@ -29,10 +33,6 @@ On [Linux](http://en.wikipedia.org/wiki/Linux), this functionality is built into
 	empty@monkey:~$ ip link show dev eth0
 	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
 	    link/ether 00:26:c7:60:5f:11 brd ff:ff:ff:ff:ff:ff
-
-**Ewwww! Perl?! Are you old or something?? Why didn't you just use (python|ruby|lisp|javascript) to do this?? All the cool kids are doing it!**
-
-Listen up, whippersnapper. I learned Perl long ago when it too was fashionable. It meets all of my [data munging](http://en.wikipedia.org/wiki/Data_munging) needs and I haven't had a compelling reason to switch yet. It's readily available on most systems and gets the job done, so stop yer [fanboi](http://www.urbandictionary.com/define.php?term=fanboi) yappin! That, and [get off my lawn](http://en.wikipedia.org/wiki/You_kids_get_off_my_lawn!)!
 
 ## Usage ##
 
