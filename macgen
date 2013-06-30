@@ -1,0 +1,93 @@
+#!/usr/bin/perl -w
+
+# macgen	-	2013-06-29
+# emptymonkey's tool for generating valid random mac addresses for a specific organization.
+
+use strict;
+use Getopt::Long;
+
+my $DEFAULT_OUI = "/etc/oui.txt";
+
+sub usage {
+	print STDERR "usage: $0 [-delimiter CHAR][-uppercase][-verbose][-file OUI_FILE][-help] [GREP_STRING]\n";
+	print STDERR "\tGREP_STRING : Only use organizations which match GREP_STRING.\n";
+	print STDERR "\t-delimiter CHAR : Use the CHAR character as the delimiter. (Default is ':'.)\n";
+	print STDERR "\t-uppercase : Use uppercase hex. (Default is lowercase.)\n";
+	print STDERR "\t-verbose : Print the \"Organization\" name in addition to the mac.\n";
+	print STDERR "\t-file OUI_FILE : Use OUI_FILE as the IEEE oui.txt file. (Default is \"/etc/oui.txt\".)\n";
+	print STDERR "\t-help : Print this message.\n\n";
+	print STDERR "Example:\n";
+	print STDERR "\tempty\@monkey:~\$ macgen -v china\n";
+	print STDERR "\tSihinwa Industries(China) Ltd.\n";
+	print STDERR "\t00:1d:86:45:0f:e5\n\n";
+	exit(-1);
+}
+
+{
+
+	my $delimiter = ':';
+	my $uppercase = 0;
+	my $verbose = 0;
+	my $file = $DEFAULT_OUI;
+	my $help = 0;
+	GetOptions(
+			"delimiter=s" => \$delimiter,
+			"uppercase" => \$uppercase,
+			"verbose" => \$verbose,
+			"file=s" => \$file,
+			"help" => \$help
+			) or usage();
+
+	if($help){
+		usage();
+	}
+
+	if(! -e $file){
+		print STDERR "$0: No such file: $file\n";
+
+		if($file eq $DEFAULT_OUI){
+			print STDERR "\nThe oui.txt file is the IEEE's public listing for \"Organizationally Unique Identifier\".\n";
+			print STDERR "More information can be found at:\n";
+			print STDERR "\thttp://en.wikipedia.org/wiki/Organizationally_Unique_Identifier\n";
+			print STDERR "\thttp://standards.ieee.org/develop/regauth/oui/index.html\n";
+			print STDERR "\nA copy of the public oui.txt file can be found at:\n";
+			print STDERR "\thttp://standards.ieee.org/develop/regauth/oui/oui.txt\n\n";
+		}
+
+		exit(-1);
+	}
+
+	open(IN_FILE, $file) or die "$!";
+	chomp(my @in_file = <IN_FILE>);
+	close(IN_FILE);
+
+	@in_file = grep(/\(hex\)/, @in_file);
+
+	if(@ARGV){
+		my @tmp_file = grep(/$ARGV[0]/i, @in_file);
+		if(@tmp_file){
+			@in_file = @tmp_file;
+		}else{
+			print STDERR "$0: string not found: $ARGV[0]\n";
+			print STDERR "\tHere, have a random mac!\n";
+		}
+	}
+
+	my $organization = $in_file[int(rand(@in_file))];
+	$organization =~ s/^\s*(\S*)\s*\(hex\)\s*//;
+	my $oui = $1;
+
+	if($verbose){
+		print "$organization\n";
+	}
+
+	$oui =~ s/-/$delimiter/g;
+
+	my $random_bits = sprintf "%02x$delimiter%02x$delimiter%02x", int(rand(0x100)), int(rand(0x100)), int(rand(0x100));
+
+	if($uppercase){
+		print $oui.$delimiter.uc($random_bits)."\n";
+	}else{
+		print lc($oui).$delimiter.$random_bits."\n";
+	}
+}
