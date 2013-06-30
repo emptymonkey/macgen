@@ -16,7 +16,7 @@ You will need to download your own copy of the oui.txt file for *macgen* to work
 
 **Ewwww! Perl?! Are you old or something?? Why didn't you just use (python|ruby|lisp|javascript) to do this?? All the cool kids are doing it!**
 
-Listen up, whippersnapper. I learned Perl long ago when it too was fashionable. It meets all of my [data munging](http://en.wikipedia.org/wiki/Data_munging) needs and I haven't had a compelling reason to switch yet. It's readily available on most systems and gets the job done, so stop yer [fanboi](http://www.urbandictionary.com/define.php?term=fanboi) yappin! That, and [get off my lawn](http://en.wikipedia.org/wiki/You_kids_get_off_my_lawn!)!
+Listen up, [whippersnapper](http://en.wiktionary.org/wiki/noob). I [learned Perl](https://xkcd.com/208/) long ago when it too was [fashionable](http://en.wiktionary.org/wiki/trendy). It meets all of my [data munging](http://en.wikipedia.org/wiki/Data_munging) needs and I haven't had a compelling reason to switch yet. It's readily available on most systems and gets the job done, so stop yer [fanboi](http://www.urbandictionary.com/define.php?term=fanboi) yappin! That, and [get off my lawn](http://en.wikipedia.org/wiki/You_kids_get_off_my_lawn!)!
 
 **What is the [use case](http://en.wikipedia.org/wiki/Use_case) for *macgen*?**
 
