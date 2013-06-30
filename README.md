@@ -78,6 +78,13 @@ Note the use of a basic [regex](http://en.wikipedia.org/wiki/Regex) in that last
 	Shanghai WDK Industrial Co.,Ltd.
 	34:bd:f9:1c:07:a4
 	
+## Installation ##
+
+	git clone git@github.com:emptymonkey/macgen.git
+	cd macgen
+
+As *macgen* is a Perl script, you may need to update the first line to point to your copy of Perl. (The default here is "/usr/bin/perl".)
+
 ## A Quick Note on Ethics ##
 
 I write and release these tools with the intention of educating the larger [IT](http://en.wikipedia.org/wiki/Information_technology) community and empowering legitimate pentesters. If I can write these tools in my spare time, then rest assured that the dedicated malicious actors have already developed versions of their own.
