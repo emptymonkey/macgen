@@ -20,7 +20,9 @@ Listen up, [whippersnapper](http://en.wiktionary.org/wiki/noob). I [learned Perl
 
 **What is the [use case](http://en.wikipedia.org/wiki/Use_case) for *macgen*?**
 
-Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) can perform a reverse OUI lookup on the MAC addresses they see on the network for the purpose of reporting the device type. A [red team](http://en.wikipedia.org/wiki/Red_team) would be able to use *macgen*, in conjunction with a [MAC address spoofing technique](http://en.wikipedia.org/wiki/Mac_spoofing), to evade detection (either by a casual observer or even by a more rigorous [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System)) during a [pentest](http://en.wikipedia.org/wiki/Pentest) or [wargame](http://en.wikipedia.org/wiki/Wargame_%28hacking%29).
+*macgen* is intended to be used in conjunction with [MAC address spoofing](http://en.wikipedia.org/wiki/Mac_spoofing) by legitimate [pentesters](http://en.wikipedia.org/wiki/Pentest) or [red teams](http://en.wikipedia.org/wiki/Red_team) as part of a [formal assessment](http://www.pentest-standard.org/index.php/Pre-engagement) or [wargame](http://en.wikipedia.org/wiki/Wargame_%28hacking%29).
+
+Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) can perform a reverse OUI lookup on any MAC addresses seen on the network for the purpose of reporting the device type. An [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System) may be configured to make decisions based off of MAC address validity or vendor type. *macgen* will allow you to generate an address for your [BackTrack](http://www.backtrack-linux.org/) attack laptop that appears to be a valid [iOS](http://en.wikipedia.org/wiki/IOS) mobile device when connecting to the [WiFi](http://en.wikipedia.org/wiki/Wifi).
 
 **How do I do MAC address spoofing?**
 
@@ -76,3 +78,7 @@ Note the use of a basic [regex](http://en.wikipedia.org/wiki/Regex) in that last
 	Shanghai WDK Industrial Co.,Ltd.
 	34:bd:f9:1c:07:a4
 	
+## A Quick Note on Ethics ##
+
+I write and release these tools with the intention of educating the larger [IT](http://en.wikipedia.org/wiki/Information_technology) community and empowering legitimate pentesters. If I can write these tools in my spare time, then rest assured that the dedicated malicious actors have already developed versions of their own.
+
