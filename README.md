@@ -1,24 +1,26 @@
 # macgen #
 
-A tool for generating valid random [MAC addresses](http://en.wikipedia.org/wiki/MAC_address) for specific organizations. 
+*macgen* is a tool for generating valid random [MAC addresses](http://en.wikipedia.org/wiki/MAC_address) for specific organizations. 
 
 **[Mac's](http://en.wikipedia.org/wiki/Macintosh) are the best!**
 
-Sorry, no. This has nothing to do with the [operating systems](http://en.wikipedia.org/wiki/Operating_system) [holy wars](http://dilbert.com/strips/comic/1995-06-24/). A MAC address is a "media access control" address. These are commonly used as the hardware addresses for networking devices in the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). 
+This has nothing to do with the [operating system](http://en.wikipedia.org/wiki/Operating_system) [holy wars](http://dilbert.com/strips/comic/1995-06-24/). "MAC" in this context means "media access control", and refers to the hardware address of a network device. A MAC address is the host's network address within the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). The MAC address is used in conjunction with [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to communicate in layer two.
 
-**So this thing will spoof an [IP address](http://en.wikipedia.org/wiki/Ip_address)?**
+The first three [octets](http://en.wikipedia.org/wiki/Octet_%28computing%29) of a MAC address make up the [OUI](http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier). The OUI of the MAC address determines which organization / vendor manufactured that particular network device. The second three octets are used as a unique identifier as determined by the vendor.
 
-Sorry, still no. IP addresses work at layer three of the OSI model. MAC addresses are below that. Before you can get an IP address, your MAC address has to become known to the router for [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to work. 
+The OUI's themselves are registered by the vendors with the [IEEE](http://en.wikipedia.org/wiki/Ieee). The IEEE is a standards organization that maintains the list of all [MAC address prefixes](http://standards.ieee.org/develop/regauth/oui/). They maintain a public copy in a file called [oui.txt](http://standards.ieee.org/develop/regauth/oui/oui.txt).
 
-Also, this tool doesn't ["spoof"](http://en.wikipedia.org/wiki/Spoofing_attack) anything. It only generates a random address in a way that makes the network connection look like it's coming from the organization or vendor of your choice. 
+*macgen* is a [Perl](http://www.perl.org/) script that examines your copy of the oui.txt file, and uses [grep](http://perldoc.perl.org/functions/grep.html) to match the string you give it to an organizations name. It then returns the first three octets from your match, and [randomly](http://search.dilbert.com/comic/Random%20Number%20Generator) generates the second three octets.
 
-**Why do I need this?**
+You will need to download your own copy of the oui.txt file for *macgen* to work.
 
-Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) perform a reverse lookup on a MAC address it sees on the network to determine what sort of a device it is. A pentester would be able to use this tool, in conjunction with a [MAC Spoofing technique](http://en.wikipedia.org/wiki/Mac_spoofing), in order to evade notice (either by casual observer or by an [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System).)
+**When would I use *macgen*?**
 
-**How do I MAC spoof?**
+Modern network analysis tools, such as [Kismet](http://en.wikipedia.org/wiki/Kismet_%28software%29) and [Wireshark](http://en.wikipedia.org/wiki/Wireshark) perform a reverse OUI lookup on the MAC addresses they see on the network for the purpose of reporting the device type. A pentester would be able to use *macgen*, in conjunction with a [MAC address spoofing technique](http://en.wikipedia.org/wiki/Mac_spoofing), to evade detection (either by a casual observer or even by a more rigorous [IDS](http://en.wikipedia.org/wiki/Intrusion_Detection_System).)
 
-On [Linux](http://en.wikipedia.org/wiki/Linux), this functionality is built into the operating system, and accessible through the [ip](http://linux.die.net/man/8/ip) command:
+**How do I do MAC address spoofing?**
+
+On [Linux](http://en.wikipedia.org/wiki/Linux), this functionality is built into the operating system and is accessible through the [ip](http://linux.die.net/man/8/ip) command:
 
 	empty@monkey:~$ ip link show dev eth0
 	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
@@ -28,36 +30,9 @@ On [Linux](http://en.wikipedia.org/wiki/Linux), this functionality is built into
 	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
 	    link/ether 00:26:c7:60:5f:11 brd ff:ff:ff:ff:ff:ff
 
-**How do I use *macgen*?**
+**Ewwww! Perl?! Are you old or something?? Why didn't you just use (python|ruby|lisp|javascript) to do this?? All the cool kids are doing it!**
 
-Here is an example for spoofing an old [DEC](http://en.wikipedia.org/wiki/Digital_Equipment_Corporation) networking device.
-
-	empty@monkey:~$ sudo ip link set eth0 addr `macgen "digital electronics corp"`
-	empty@monkey:~$ ip link show dev eth0
-	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
-	    link/ether 00:01:23:12:fe:cb brd ff:ff:ff:ff:ff:ff
-
-As another example, to make your MAC address look like it is related to an [Advanced Persistent Threat](http://en.wikipedia.org/wiki/Advanced_persistent_threat), try the following:
-
-	empty@monkey:~$ sudo ip link set eth0 addr `macgen china`
-	empty@monkey:~$ ip link show dev eth0
-	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
-	    link/ether 00:0c:5d:e0:f2:61 brd ff:ff:ff:ff:ff:ff
-
-You can confirm this by doing a reverse lookup:
-
-	baigu@monkey:~$ macgen -r 00:0c:5d:e0:f2:61
-	  00-0C-5D   (hex)		CHIC TECHNOLOGY (CHINA) CORP.
-
-Finally, if you just want to see some of the organizations and a random MAC together, use the -v flag:
-
-	empty@monkey:~$ macgen -v china
-	Chinasys Technologies Limited
-	00:12:0b:34:bc:0f
-
-**How does this work?**
-
-The [IEEE](http://en.wikipedia.org/wiki/Ieee) is a standards organization that maintains the list of all [MAC address prefixes](http://standards.ieee.org/develop/regauth/oui/). The maintain a public copy called the [oui.txt](http://standards.ieee.org/develop/regauth/oui/oui.txt) file. *macgen* is just a [Perl](http://www.perl.org/) script that examines your copy of the oui.txt file, and uses [grep](http://perldoc.perl.org/functions/grep.html) to match the string you give it to an organizations name. You will need to download your own copy of the oui.txt file.
+Listen up, whippersnapper. I learned Perl long ago when it too was fashionable. It meets all of my [data munging](http://en.wikipedia.org/wiki/Data_munging) needs and I haven't had a compelling reason to switch yet. It's readily available on most systems and gets the job done, so stop yer [fanboi](http://www.urbandictionary.com/define.php?term=fanboi) yappin! That, and [get off my lawn](http://en.wikipedia.org/wiki/You_kids_get_off_my_lawn!)!
 
 ## Usage ##
 
@@ -68,11 +43,28 @@ The [IEEE](http://en.wikipedia.org/wiki/Ieee) is a standards organization that m
 		-uppercase : Use uppercase hex. (Default is lowercase.)
 		-verbose : Print the "Organization" name in addition to the mac.
 		-file OUI_FILE : Use OUI_FILE as the IEEE oui.txt file. (Default is "/etc/oui.txt".)
-		-reverse MAC : Return the oui information for the given MAC address.
+		-reverse MAC : Return the organization name for the given MAC address.
 		-help : Print this message.
 	
-	Example:
-		empty@monkey:~$ macgen -v china
-		Sihinwa Industries(China) Ltd.
-		00:1d:86:45:0f:e5
+## Examples ##
+
+Here is an example for spoofing an old [DEC](http://en.wikipedia.org/wiki/Digital_Equipment_Corporation) networking interface.
+
+	empty@monkey:~$ sudo ip link set eth0 addr `macgen "digital electronics corp"`
+	empty@monkey:~$ ip link show dev eth0
+	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
+	    link/ether 00:01:23:12:fe:cb brd ff:ff:ff:ff:ff:ff
+
+In this example, we will demonstrate how a MAC address can be made to impersonate an [Advanced Persistent Threat](http://en.wikipedia.org/wiki/Advanced_persistent_threat), and why you shouldn't believe everything you read in a log file:
+
+	empty@monkey:~$ sudo ip link set eth0 addr `macgen "shanghai.*telecom"`
+	empty@monkey:~$ ip link show dev eth0
+	2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
+	    link/ether 78:ec:22:52:29:56 brd ff:ff:ff:ff:ff:ff
+
+For confirmation, perform a reverse lookup:
+
+	empty@monkey:~$ macgen -r 78:ec:22:52:29:56
+	78-EC-22   (hex)		Shanghai Qihui Telecom Technology Co., LTD
+
 

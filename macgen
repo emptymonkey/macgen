@@ -15,7 +15,7 @@ sub usage {
 	print STDERR "\t-uppercase : Use uppercase hex. (Default is lowercase.)\n";
 	print STDERR "\t-verbose : Print the \"Organization\" name in addition to the mac.\n";
 	print STDERR "\t-file OUI_FILE : Use OUI_FILE as the IEEE oui.txt file. (Default is \"/etc/oui.txt\".)\n";
-	print STDERR "\t-reverse MAC : Return the oui information for the given MAC address.\n";
+	print STDERR "\t-reverse MAC : Return the organization name for the given MAC address.\n";
 	print STDERR "\t-help : Print this message.\n\n";
 	print STDERR "Example:\n";
 	print STDERR "\tempty\@monkey:~\$ macgen -v china\n";
