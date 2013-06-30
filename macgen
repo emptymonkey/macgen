@@ -9,12 +9,13 @@ use Getopt::Long;
 my $DEFAULT_OUI = "/etc/oui.txt";
 
 sub usage {
-	print STDERR "usage: $0 [-delimiter CHAR][-uppercase][-verbose][-file OUI_FILE][-help] [GREP_STRING]\n";
+	print STDERR "usage: $0 [-delimiter CHAR][-uppercase][-verbose][-file OUI_FILE][-reverse MAC][-help] [GREP_STRING]\n";
 	print STDERR "\tGREP_STRING : Only use organizations which match GREP_STRING.\n";
 	print STDERR "\t-delimiter CHAR : Use the CHAR character as the delimiter. (Default is ':'.)\n";
 	print STDERR "\t-uppercase : Use uppercase hex. (Default is lowercase.)\n";
 	print STDERR "\t-verbose : Print the \"Organization\" name in addition to the mac.\n";
 	print STDERR "\t-file OUI_FILE : Use OUI_FILE as the IEEE oui.txt file. (Default is \"/etc/oui.txt\".)\n";
+	print STDERR "\t-reverse MAC : Return the oui information for the given MAC address.\n";
 	print STDERR "\t-help : Print this message.\n\n";
 	print STDERR "Example:\n";
 	print STDERR "\tempty\@monkey:~\$ macgen -v china\n";
@@ -29,12 +30,14 @@ sub usage {
 	my $uppercase = 0;
 	my $verbose = 0;
 	my $file = $DEFAULT_OUI;
+	my $reverse = 0;
 	my $help = 0;
 	GetOptions(
 			"delimiter=s" => \$delimiter,
 			"uppercase" => \$uppercase,
 			"verbose" => \$verbose,
 			"file=s" => \$file,
+			"reverse=s" => \$reverse,
 			"help" => \$help
 			) or usage();
 
@@ -62,6 +65,23 @@ sub usage {
 	close(IN_FILE);
 
 	@in_file = grep(/\(hex\)/, @in_file);
+
+	if($reverse){
+
+		$reverse =~ s/\W//g;
+		$reverse = uc($reverse);
+		$reverse =~ s/^(\w\w)(\w\w)(\w\w).*/$1-$2-$3/;
+
+		chomp(my @tmp = grep(/^\s*$reverse/, @in_file));
+		
+		if($tmp[0]){
+			print "$tmp[0]\n";
+		}else{
+			print STDERR "$0: reverse lookup $reverse: No oui match.\n";
+		}
+
+		exit(0);
+	}
 
 	if(@ARGV){
 		my @tmp_file = grep(/$ARGV[0]/i, @in_file);
