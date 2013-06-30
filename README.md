@@ -4,7 +4,7 @@
 
 **[Mac's](http://en.wikipedia.org/wiki/Macintosh) are the best!**
 
-Sorry, but this has nothing to do with the [operating system](http://en.wikipedia.org/wiki/Operating_system) [holy wars](http://dilbert.com/strips/comic/1995-06-24/). "MAC" in this context means "media access control", and refers to the hardware address of a network device. A MAC address is the host's network address within the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). The MAC address is used in conjunction with [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to communicate on layer two.
+Sorry, but this has nothing to do with Macintosh computers or the [operating system holy wars](http://dilbert.com/strips/comic/1995-06-24/). "MAC" in this context means "media access control", and refers to the hardware address of a network device. A MAC address is the host's network address within the [data link layer](http://en.wikipedia.org/wiki/Data_link_layer) of the [OSI networking model](http://en.wikipedia.org/wiki/OSI_reference_model). The MAC address is used in conjunction with [ARP](http://en.wikipedia.org/wiki/Address_Resolution_Protocol) to communicate on layer two.
 
 The first three [octets](http://en.wikipedia.org/wiki/Octet_%28computing%29) of a MAC address make up the [OUI](http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier). The OUI of the MAC address determines which vendor manufactured that particular network device. The second three octets are used as a unique identifier as determined by the vendor.
 
