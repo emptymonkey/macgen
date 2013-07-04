@@ -8,7 +8,7 @@ Sorry, but this has nothing to do with the Macintosh computer or the [computer h
 
 The first three [octets](http://en.wikipedia.org/wiki/Octet_%28computing%29) of a MAC address make up the [OUI](http://en.wikipedia.org/wiki/Organizationally_Unique_Identifier). The OUI of the MAC address determines which vendor manufactured that particular network device. The second three octets are used as a unique identifier as determined by the vendor.
 
-The OUI's themselves are registered by the vendors with the [IEEE](http://en.wikipedia.org/wiki/Ieee). The IEEE is a standards organization that maintains the list of all [MAC address prefixes](http://standards.ieee.org/develop/regauth/oui/). They maintain a public copy in a file called [oui.txt](http://standards.ieee.org/develop/regauth/oui/oui.txt).
+The OUI's themselves are [registered by the vendors](http://standards.ieee.org/develop/regauth/oui/) with the [IEEE](http://en.wikipedia.org/wiki/Ieee). The IEEE is a standards organization that maintains the list of all MAC address prefixes in a public file called the [oui.txt](http://standards.ieee.org/develop/regauth/oui/oui.txt).
 
 *macgen* is a [Perl](http://www.perl.org/) script that examines your copy of the oui.txt file, and uses [grep](http://perldoc.perl.org/functions/grep.html) to match the string you give it with an organizations name. It then returns the first three octets from your match, and [randomly](http://search.dilbert.com/comic/Random%20Number%20Generator) generates the second three octets.
 
