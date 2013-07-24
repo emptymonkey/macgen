@@ -80,7 +80,7 @@ Note the use of a basic [regex](http://en.wikipedia.org/wiki/Regex) in that last
 	
 ## Installation ##
 
-	git clone git@github.com:emptymonkey/macgen.git
+	git clone https://github.com/emptymonkey/macgen.git
 	cd macgen
 	wget http://standards.ieee.org/develop/regauth/oui/oui.txt
 	sudo mv oui.txt /etc
