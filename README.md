@@ -82,7 +82,7 @@ Note the use of a basic [regex](http://en.wikipedia.org/wiki/Regex) in that last
 
 	git clone https://github.com/emptymonkey/macgen.git
 	cd macgen
-	wget http://standards.ieee.org/develop/regauth/oui/oui.txt
+	wget https://standards-oui.ieee.org/oui/oui.txt
 	sudo mv oui.txt /etc
 
 As *macgen* is a Perl script, you may need to update the first line to point to your copy of Perl. (The default here is "/usr/bin/perl".)
